@@ -361,3 +361,24 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild*/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+MemoryCaptures/
+*.unitypackage
+
+# Visual Studio / C#
+.vs/
+*.csproj
+*.sln
+*.suo
+*.user
+*.pidb
+*.svd
+*.pdb
+*.mdb
