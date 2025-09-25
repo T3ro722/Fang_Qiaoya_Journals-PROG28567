@@ -9,9 +9,20 @@ public class Player : MonoBehaviour
     public float bombTrailSpacing = 0.5f;
     public int numberOfTrailBombs = 5;
 
+    [Header("Movement Settings")]
+    public float movespeed = 1f;
+    public float maxSpeed = 5f;
+    public float accelerationTime = 1f;
+
+    private Vector3 velocity;
+    private float acceleration;
+
     // Update is called once per frame
     void Update()
     {
+
+        PlayerMovement();
+
         if (Input.GetKeyDown(KeyCode.B))
         {
             SpawnBombAtOffset(new Vector3(0, 1));
@@ -105,5 +116,31 @@ public class Player : MonoBehaviour
                 Debug.DrawLine(transform.position, asteroid.position, Color.red, 2.5f);
             }
         }
+    }
+
+    private void PlayerMovement()
+    {
+        //Velocity = Vector3.zero;
+        acceleration = maxSpeed / accelerationTime;
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            velocity += acceleration * Time.deltaTime * Vector3.up;
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            velocity += acceleration * Time.deltaTime * Vector3.down;
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            velocity += acceleration * Time.deltaTime * Vector3.left;
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            velocity += acceleration * Time.deltaTime * Vector3.right;
+        }
+
+        velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+        transform.position += Time.deltaTime * velocity;
     }
 }
