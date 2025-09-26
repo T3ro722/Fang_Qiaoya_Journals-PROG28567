@@ -13,9 +13,11 @@ public class Player : MonoBehaviour
     public float movespeed = 1f;
     public float maxSpeed = 5f;
     public float accelerationTime = 1f;
+    public float decelerationTime = 0.5f;
 
     private Vector3 velocity;
     private float acceleration;
+    private float deceleration;
 
     // Update is called once per frame
     void Update()
@@ -122,6 +124,7 @@ public class Player : MonoBehaviour
     {
         //Velocity = Vector3.zero;
         acceleration = maxSpeed / accelerationTime;
+        deceleration = maxSpeed / decelerationTime;
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
@@ -142,5 +145,14 @@ public class Player : MonoBehaviour
 
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
         transform.position += Time.deltaTime * velocity;
+
+        //deceleration after key release
+        if (Input.GetKeyUp(KeyCode.UpArrow) && (!Input.GetKey(KeyCode.UpArrow)))
+        {
+            float decelerateSpeed = velocity.magnitude - acceleration * Time.deltaTime;
+            if (decelerateSpeed < 0) decelerateSpeed = 0;//avoid negative speed
+            velocity += deceleration * Time.deltaTime * velocity.normalized;
+            velocity = Vector3.ClampMagnitude(velocity, decelerateSpeed);
+        }
     }
 }
