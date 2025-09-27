@@ -49,6 +49,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -94,6 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4194190890010494449}
   - component: {fileID: 4138628647630011040}
+  - component: {fileID: 4699827104851080065}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: Untagged
@@ -124,8 +128,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7969683946929540427}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ed2e3d81b6305a4781854e2db082af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EmoveSpeed: 0.5
+  EmaxSpeed: 3
+  EaccelerationTime: 1
+--- !u!114 &4699827104851080065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7969683946929540427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f81c0b7ff9b19541b6b860e2eeacb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
