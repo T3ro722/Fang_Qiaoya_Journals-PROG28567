@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
     {
 
         PlayerMovement();
+        EnemyRadar(5.0f, 8);
 
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -65,7 +67,7 @@ public class Player : MonoBehaviour
         Vector3 Direc = transform.up.normalized;
         for (int i = 1; i <= NumberOfTrailBombs; i++)
         {
-            Vector3 pos = transform.position - Direc * BombSpacing * (i+1);
+            Vector3 pos = transform.position - Direc * BombSpacing * (i + 1);
             Instantiate(bombPrefab, pos, Quaternion.identity);
         }
     }
@@ -153,6 +155,38 @@ public class Player : MonoBehaviour
             if (decelerateSpeed < 0) decelerateSpeed = 0;//avoid negative speed
             velocity += deceleration * Time.deltaTime * velocity.normalized;
             velocity = Vector3.ClampMagnitude(velocity, decelerateSpeed);
+        }
+    }
+
+    public void EnemyRadar(float radius, int circlePoints)
+    {
+        float angleStep = 360f / circlePoints;
+
+        //draw a circle with circlepoints bumber of points around the player and the specified radius
+        for (int i = 0; i <= circlePoints; i++)
+        {
+            float angle = i * angleStep * Mathf.Deg2Rad;
+            Vector3 dire = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
+            Vector3 point = transform.position + dire * radius;
+            if (i > 0)
+            {
+                Debug.DrawLine(transform.position + new Vector3(Mathf.Cos((i - 1) * angleStep * Mathf.Deg2Rad), Mathf.Sin((i - 1) * angleStep * Mathf.Deg2Rad), 0) * radius, point, Color.green);
+            }
+        }
+        //if the enemy is within the radius, change the green lines to red
+        float distanceToEnemy = Vector3.Distance(transform.position, enemyTransform.position);
+        if (distanceToEnemy <= radius)
+        {
+            for (int i = 0; i <= circlePoints; i++)
+            {
+                float angle = i * angleStep * Mathf.Deg2Rad;
+                Vector3 dire = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
+                Vector3 point = transform.position + dire * radius;
+                if (i > 0)
+                {
+                    Debug.DrawLine(transform.position + new Vector3(Mathf.Cos((i - 1) * angleStep * Mathf.Deg2Rad), Mathf.Sin((i - 1) * angleStep * Mathf.Deg2Rad), 0) * radius, point, Color.red);
+                }
+            }
         }
     }
 }

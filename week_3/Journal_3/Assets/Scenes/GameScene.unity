@@ -645,6 +645,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 212057120076995680, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 718054715726850312, guid: 497db9a684eb1074e87f3728a159378d, type: 3}
+    - target: {fileID: 212057120076995680, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1238,6 +1246,14 @@ PrefabInstance:
     - target: {fileID: 4408196811525658, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212515819419636008, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2485232539711288942, guid: 6c79a432b4013424581d393ffe467024, type: 3}
+    - target: {fileID: 212515819419636008, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: bombPrefab
