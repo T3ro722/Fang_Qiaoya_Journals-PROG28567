@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public List<Transform> asteroidTransforms;
     public float bombTrailSpacing = 0.5f;
     public int numberOfTrailBombs = 5;
+    public GameObject powerupPrefab;
 
     [Header("Movement Settings")]
     public float movespeed = 1f;
@@ -55,6 +56,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))//radar
         {
             DetectAsteroids(5.0f, asteroidTransforms);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SpawnPowerups(3.0f, 6);
         }
     }
 
@@ -187,6 +193,17 @@ public class Player : MonoBehaviour
                     Debug.DrawLine(transform.position + new Vector3(Mathf.Cos((i - 1) * angleStep * Mathf.Deg2Rad), Mathf.Sin((i - 1) * angleStep * Mathf.Deg2Rad), 0) * radius, point, Color.red);
                 }
             }
+        }
+    }
+
+    public void SpawnPowerups(float radius, int numberOfPowerups)
+    {
+        for (int i = 0; i < numberOfPowerups; i++)
+        {
+            float angle = i * (360f / numberOfPowerups) * Mathf.Deg2Rad;
+            Vector3 dire = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
+            Vector3 pos = transform.position + dire * radius;
+            Instantiate(powerupPrefab, pos, Quaternion.identity);
         }
     }
 }
