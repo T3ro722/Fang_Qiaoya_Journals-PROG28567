@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float bombTrailSpacing = 0.5f;
     public int numberOfTrailBombs = 5;
     public GameObject powerupPrefab;
+    public float moveSpeed = 3f;//bullet speed
 
     [Header("Movement Settings")]
     public float movespeed = 1f;
@@ -61,6 +62,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             SpawnPowerups(3.0f, 6);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            spawnDirBullet(new Vector3(0, 1, 0));
         }
     }
 
@@ -205,5 +211,17 @@ public class Player : MonoBehaviour
             Vector3 pos = transform.position + dire * radius;
             Instantiate(powerupPrefab, pos, Quaternion.identity);
         }
+    }
+
+    public void spawnDirBullet(Vector3 inOffset)
+    {
+        //spawn a bullet right on top of player and shoot it in enemy's direction
+        Instantiate(bombPrefab, transform.position + inOffset, Quaternion.identity);
+        //shoot it in enemy's direction
+        float angle = Mathf.Atan2(enemyTransform.position.y - transform.position.y, enemyTransform.position.x - transform.position.x) * Mathf.Rad2Deg;
+        Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0).normalized;
+        transform.position += direction * moveSpeed * Time.deltaTime;
+
+
     }
 }
