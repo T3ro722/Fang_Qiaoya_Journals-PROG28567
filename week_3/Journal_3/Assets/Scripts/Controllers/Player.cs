@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public int numberOfTrailBombs = 5;
     public GameObject powerupPrefab;
     public float moveSpeed = 3f;//bullet speed
+    public GameObject astronautPrefab;
+    public Transform astronautTransform;
 
     [Header("Movement Settings")]
     public float movespeed = 1f;
@@ -80,6 +82,8 @@ public class Player : MonoBehaviour
         {
             spawn4way();
         }
+
+        
     }
 
     private void SpawnBombAtOffset(Vector3 inOffset)
@@ -265,4 +269,6 @@ public class Player : MonoBehaviour
         transform.position += Vector3.left * moveSpeed * Time.deltaTime;
 
     }
+
+    
 }

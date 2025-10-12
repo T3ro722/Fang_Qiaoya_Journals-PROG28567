@@ -554,6 +554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shieldTransform: {fileID: 7126686258464192094, guid: 3117bcf8079814e48b7d8cfbde23a727, type: 3}
   shieldPrefab: {fileID: 1200194230658010187, guid: 3117bcf8079814e48b7d8cfbde23a727, type: 3}
+  circlePoints: 12
 --- !u!1001 &742019646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -677,6 +678,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7745036113958564858, guid: df19797cdb2033b4dbba45870d50fc7d, type: 3}
   m_PrefabInstance: {fileID: 1416747605}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1118350987 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4408196811525658, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+  m_PrefabInstance: {fileID: 2030902519}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1220048545
 PrefabInstance:
@@ -1383,6 +1389,14 @@ PrefabInstance:
       propertyPath: enemyTransform
       value: 
       objectReference: {fileID: 1441953408}
+    - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      propertyPath: astronautPrefab
+      value: 
+      objectReference: {fileID: 6387370153796361629, guid: 6f522c6c4bdfa1c46b295c208097c0c5, type: 3}
+    - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      propertyPath: astronautTransform
+      value: 
+      objectReference: {fileID: 1118350987}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: asteroidTransforms.Array.size
       value: 10
