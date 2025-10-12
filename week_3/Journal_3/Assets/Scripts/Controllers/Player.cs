@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
@@ -22,10 +23,16 @@ public class Player : MonoBehaviour
     private float acceleration;
     private float deceleration;
 
+    private void Start()
+    {
+        acceleration = maxSpeed / accelerationTime;
+        deceleration = maxSpeed / decelerationTime;
+    }
+
     // Update is called once per frame
     void Update()
     {
-
+        
         PlayerMovement();
         EnemyRadar(5.0f, 8);
 
@@ -141,37 +148,51 @@ public class Player : MonoBehaviour
 
     private void PlayerMovement()
     {
+        acceleration = maxSpeed / accelerationTime;
+        deceleration = maxSpeed / decelerationTime;
+        Vector2 PlayerInput = Vector2.zero;
         //Velocity = Vector3.zero;
         acceleration = maxSpeed / accelerationTime;
         deceleration = maxSpeed / decelerationTime;
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            velocity += acceleration * Time.deltaTime * Vector3.up;
+            PlayerInput += Vector2.up;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            velocity += acceleration * Time.deltaTime * Vector3.down;
+            PlayerInput += Vector2.down;
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            velocity += acceleration * Time.deltaTime * Vector3.left;
+            PlayerInput += Vector2.left;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            velocity += acceleration * Time.deltaTime * Vector3.right;
+            PlayerInput += Vector2.right;
         }
 
-        velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
-        transform.position += Time.deltaTime * velocity;
-
-        //deceleration after key release
-        if (Input.GetKeyUp(KeyCode.UpArrow) && (!Input.GetKey(KeyCode.UpArrow)))
+        if(PlayerInput.magnitude > 0)
         {
-            float decelerateSpeed = velocity.magnitude - acceleration * Time.deltaTime;
-            if (decelerateSpeed < 0) decelerateSpeed = 0;//avoid negative speed
-            velocity += deceleration * Time.deltaTime * velocity.normalized;
-            velocity = Vector3.ClampMagnitude(velocity, decelerateSpeed);
+            velocity += (Vector3)PlayerInput.normalized * acceleration * Time.deltaTime;
+
+            if(velocity.magnitude > maxSpeed)
+            {
+                velocity = velocity.normalized * maxSpeed;
+            }
+            else
+            {
+                Vector3 changeInVelocity = velocity.normalized * deceleration * Time.deltaTime;
+                if (changeInVelocity.magnitude > velocity.magnitude)
+                {
+                    velocity = Vector3.zero;
+                }
+                else
+                {
+                    velocity -= changeInVelocity;
+                }
+            }
+            transform.position += velocity * Time.deltaTime;
         }
     }
 
