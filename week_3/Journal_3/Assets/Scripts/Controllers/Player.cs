@@ -68,6 +68,11 @@ public class Player : MonoBehaviour
         {
             spawnDirBullet(new Vector3(0, 1, 0));
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            spawn4way();
+        }
     }
 
     private void SpawnBombAtOffset(Vector3 inOffset)
@@ -222,6 +227,21 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0).normalized;
         transform.position += direction * moveSpeed * Time.deltaTime;
 
+
+    }
+
+    public void spawn4way()
+    {
+        Instantiate(bombPrefab, transform.position + new Vector3(0, 1), Quaternion.identity);
+        Instantiate(bombPrefab, transform.position + new Vector3(0, -1), Quaternion.identity);
+        Instantiate(bombPrefab, transform.position + new Vector3(1, 0), Quaternion.identity);
+        Instantiate(bombPrefab, transform.position + new Vector3(-1, 0), Quaternion.identity);
+
+        //four bullets shoot out in 4 directions
+        transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+        transform.position += Vector3.down * moveSpeed * Time.deltaTime;
+        transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        transform.position += Vector3.left * moveSpeed * Time.deltaTime;
 
     }
 }

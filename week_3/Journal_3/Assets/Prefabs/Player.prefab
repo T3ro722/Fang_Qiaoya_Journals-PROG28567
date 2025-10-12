@@ -49,6 +49,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -81,7 +84,7 @@ SpriteRenderer:
   m_Size: {x: 1.14, y: 0.82}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1742679311805458
@@ -129,4 +132,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d47aa4a8b38e97448c22dbfdc9e14da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HomingMissilePrefab: {fileID: 0}
+  enemyTransform: {fileID: 0}
+  bombPrefab: {fileID: 1273894435109820, guid: b262926197932c945b68169dd6fd6c5c, type: 3}
+  asteroidTransforms: []
+  bombTrailSpacing: 0.5
+  numberOfTrailBombs: 5
+  powerupPrefab: {fileID: 0}
+  moveSpeed: 3
+  movespeed: 1
+  maxSpeed: 5
+  accelerationTime: 1
+  decelerationTime: 0.5
