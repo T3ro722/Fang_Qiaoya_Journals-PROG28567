@@ -40,9 +40,9 @@ public class Shield : MonoBehaviour
                Instantiate(shieldPrefab, point, Quaternion.identity);
             }
         }
-        float angle = Time.time * speed;
-        float x = target.position.x + radius * Mathf.Cos(angle);
-        float y = target.position.y + radius * Mathf.Sin(angle);
-        transform.position = new Vector3(x, y, 0);
+        //float angle = Time.time * speed;
+        //float x = target.position.x + radius * Mathf.Cos(angle);
+        //float y = target.position.y + radius * Mathf.Sin(angle);
+        //transform.position = new Vector3(x, y, 0);
     }
 }
