@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
 
+
         if (Input.GetKey(KeyCode.A))
         {
           rb.MovePosition(rb.position + Vector2.left * moveSpeed * Time.fixedDeltaTime);
@@ -44,7 +45,15 @@ public class PlayerController : MonoBehaviour
 
     public bool IsWalking()
     {
-        return false;
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
     public bool IsGrounded()
     {
@@ -53,6 +62,17 @@ public class PlayerController : MonoBehaviour
 
     public FacingDirection GetFacingDirection()
     {
-        return FacingDirection.left;
+        
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            return FacingDirection.right;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            return FacingDirection.left;
+        }
+
+        return FacingDirection.right; // Default value
     }
 }
