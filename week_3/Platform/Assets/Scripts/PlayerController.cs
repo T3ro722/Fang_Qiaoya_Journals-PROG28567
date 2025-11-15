@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    Rigidbody rb;
+    public float moveSpeed = 5f;
+
     public enum FacingDirection
     {
         left, right
@@ -10,7 +13,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -25,6 +28,17 @@ public class PlayerController : MonoBehaviour
 
     private void MovementUpdate(Vector2 playerInput)
     {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        BoxCollider2D collider = GetComponent<BoxCollider2D>();
+
+        if (Input.GetKey(KeyCode.A))
+        {
+          rb.MovePosition(rb.position + Vector2.left * moveSpeed * Time.fixedDeltaTime);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+          rb.MovePosition(rb.position + Vector2.right * moveSpeed * Time.fixedDeltaTime);
+        }
 
     }
 
