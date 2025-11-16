@@ -4,6 +4,9 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
     public float moveSpeed = 5f;
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.8f;
+    public LayerMask groundLayer;
 
     public enum FacingDirection
     {
@@ -57,7 +60,25 @@ public class PlayerController : MonoBehaviour
     }
     public bool IsGrounded()
     {
+        
+
+        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckRadius, groundLayer);
+        if (hit.collider != null)
+        {
+            Debug.Log("Grounded");
+            return true;
+            
+        }
+        Debug.Log("Not Grounded");
         return false;
+        
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(groundCheck.position, groundCheck.position + Vector3.down * 0.8f);
     }
 
     public FacingDirection GetFacingDirection()
