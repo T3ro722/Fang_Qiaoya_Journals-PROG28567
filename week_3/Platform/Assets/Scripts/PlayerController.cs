@@ -2,21 +2,31 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody rb;
-    public float moveSpeed = 5f;
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.8f;
-    public LayerMask groundLayer;
-
     public enum FacingDirection
     {
         left, right
     }
+    Rigidbody rb;
+    public float moveSpeed = 5f;
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.7f;
+    public LayerMask groundLayer;
+
+    public float apexHeight = 3.5f;
+    public float apexTime = 0.5f;
+
+    private Vector3 velocity;
+
+    private float gravity;
+    private float jumpVel;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        gravity = -2 * apexHeight / (apexTime * apexTime);
+        jumpVel = 2 * apexHeight / apexTime;
     }
 
     // Update is called once per frame
@@ -25,25 +35,42 @@ public class PlayerController : MonoBehaviour
         // The input from the player needs to be determined and
         // then passed in the to the MovementUpdate which should
         // manage the actual movement of the character.
-        Vector2 playerInput = new Vector2();
+        Vector2 playerInput = new()
+        {
+            x = Input.GetAxisRaw("Horizontal"),
+            y = Input.GetButtonDown("Jump") ? 1 : 0
+        };
         MovementUpdate(playerInput);
     }
 
+   
     private void MovementUpdate(Vector2 playerInput)
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        BoxCollider2D collider = GetComponent<BoxCollider2D>();
-
-
-        if (Input.GetKey(KeyCode.A))
+        
+        if (playerInput.x == 0)
         {
-          rb.MovePosition(rb.position + Vector2.left * moveSpeed * Time.fixedDeltaTime);
+            velocity.x = 0;
         }
-        if (Input.GetKey(KeyCode.D))
+        else
         {
-          rb.MovePosition(rb.position + Vector2.right * moveSpeed * Time.fixedDeltaTime);
+            velocity.x = playerInput.x * moveSpeed;
         }
 
+
+        JumpInput(playerInput);
+        transform.position += velocity * Time.deltaTime;
+
+
+    }
+
+    private void JumpInput(Vector2 playerInput)
+    {
+        if (IsGrounded() && playerInput.y == 1)
+            velocity.y = jumpVel;
+        else if (!IsGrounded())
+            velocity.y += gravity * Time.deltaTime;
+        else
+            velocity.y = 0;
     }
 
     public bool IsWalking()
@@ -78,7 +105,7 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(groundCheck.position, groundCheck.position + Vector3.down * 0.8f);
+        Gizmos.DrawLine(groundCheck.position, groundCheck.position + Vector3.down * 0.7f);
     }
 
     public FacingDirection GetFacingDirection()
