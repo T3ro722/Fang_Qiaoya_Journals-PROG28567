@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private float gravity;
     private float jumpVel;
 
+    public float terminalSpeed = 0.1f;// if player falls faster than this, set velocity to this value
+
 
     // Start is called before the first frame update
     void Start()
@@ -56,9 +58,15 @@ public class PlayerController : MonoBehaviour
             velocity.x = playerInput.x * moveSpeed;
         }
 
-
         JumpInput(playerInput);
+
+        if (velocity.y < terminalSpeed)
+        {
+            velocity.y = terminalSpeed;
+        }
+
         transform.position += velocity * Time.deltaTime;
+
 
 
     }
