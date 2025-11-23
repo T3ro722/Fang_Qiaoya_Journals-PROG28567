@@ -1797,6 +1797,7 @@ MonoBehaviour:
   apexHeight: 3.5
   apexTime: 0.5
   terminalSpeed: -8
+  coyoteTime: 0.5
 --- !u!4 &1433354315
 Transform:
   m_ObjectHideFlags: 0
@@ -1941,7 +1942,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &1598075209
 GameObject:
   m_ObjectHideFlags: 0

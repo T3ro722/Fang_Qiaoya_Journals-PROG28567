@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
 
     public float terminalSpeed = 0.1f;// if player falls faster than this, set velocity to this value
 
+    public float coyoteTime = 0.5f; // time after leaving ground that jump is still allowed
+    private float coyoteTimeCounter;
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +61,13 @@ public class PlayerController : MonoBehaviour
             velocity.x = playerInput.x * moveSpeed;
         }
 
+        if (IsGrounded())
+            coyoteTimeCounter = coyoteTime;
+        else
+            coyoteTimeCounter -= Time.deltaTime;
+
         JumpInput(playerInput);
+
 
         if (velocity.y < terminalSpeed)
         {
@@ -73,8 +82,10 @@ public class PlayerController : MonoBehaviour
 
     private void JumpInput(Vector2 playerInput)
     {
-        if (IsGrounded() && playerInput.y == 1)
-            velocity.y = jumpVel;
+        if (playerInput.y == 1 && coyoteTimeCounter > 0f)
+        { 
+        velocity.y = jumpVel;
+        }
         else if (!IsGrounded())
             velocity.y += gravity * Time.deltaTime;
         else
