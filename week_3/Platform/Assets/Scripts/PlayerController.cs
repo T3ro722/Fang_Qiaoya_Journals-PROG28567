@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private float acceleration;
     private float deceleration;
 
+    public float dashDistance = 3f; //dash distance in units
+
     public Transform groundCheck;
     public float groundCheckRadius = 0.7f;
     public LayerMask groundLayer;
@@ -54,6 +56,17 @@ public class PlayerController : MonoBehaviour
             x = Input.GetAxisRaw("Horizontal"),
             y = Input.GetButtonDown("Jump") ? 1 : 0
         };
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+           if (GetFacingDirection() == FacingDirection.right)
+            {
+                transform.position += Vector3.right * dashDistance;
+            }
+            else
+            {
+                transform.position += Vector3.left * dashDistance;
+            }
+        }
         MovementUpdate(playerInput);
     }
 
