@@ -1789,6 +1789,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  accelTime: 0.6
+  decelTime: 0.3
   groundCheck: {fileID: 154954014}
   groundCheckRadius: 0.7
   groundLayer:

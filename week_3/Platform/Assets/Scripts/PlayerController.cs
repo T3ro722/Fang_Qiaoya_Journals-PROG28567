@@ -7,7 +7,13 @@ public class PlayerController : MonoBehaviour
         left, right
     }
     Rigidbody rb;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 5f;//max speed in units per second
+    public float accelTime = 0.7f; //1s to reach max speed
+    public float decelTime = 0.5f; //0.5s to stop from max speed
+
+    private float acceleration;
+    private float deceleration;
+
     public Transform groundCheck;
     public float groundCheckRadius = 0.7f;
     public LayerMask groundLayer;
@@ -32,6 +38,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         gravity = -2 * apexHeight / (apexTime * apexTime);
         jumpVel = 2 * apexHeight / apexTime;
+
+        acceleration = moveSpeed / accelTime;
+        deceleration = moveSpeed / decelTime;
     }
 
     // Update is called once per frame
@@ -51,15 +60,23 @@ public class PlayerController : MonoBehaviour
    
     private void MovementUpdate(Vector2 playerInput)
     {
-        
-        if (playerInput.x == 0)
+
+        float inputX = playerInput.x;
+
+        float targetSpeed = inputX * moveSpeed;
+        if (Mathf.Abs(targetSpeed) > Mathf.Abs(velocity.x))
         {
-            velocity.x = 0;
+            // Accelerating
+            float rate = acceleration;
+            velocity.x = Mathf.MoveTowards(velocity.x, targetSpeed, rate * Time.deltaTime);
         }
         else
         {
-            velocity.x = playerInput.x * moveSpeed;
+            // Decelerating
+            float rate = deceleration;
+            velocity.x = Mathf.MoveTowards(velocity.x, targetSpeed, rate * Time.deltaTime);
         }
+
 
         if (IsGrounded())
             coyoteTimeCounter = coyoteTime;
