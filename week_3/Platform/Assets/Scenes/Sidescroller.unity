@@ -1789,8 +1789,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  accelTime: 0.6
-  decelTime: 0.3
+  accelTime: 0.4
+  decelTime: 0.2
+  dashDistance: 2
   groundCheck: {fileID: 154954014}
   groundCheckRadius: 0.7
   groundLayer:
@@ -1798,6 +1799,7 @@ MonoBehaviour:
     m_Bits: 8
   apexHeight: 3.5
   apexTime: 0.5
+  buffedjump: 1.2
   terminalSpeed: -8
   coyoteTime: 0.5
 --- !u!4 &1433354315

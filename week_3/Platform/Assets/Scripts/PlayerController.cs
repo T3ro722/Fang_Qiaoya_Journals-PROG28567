@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private float gravity;
     private float jumpVel;
 
+    public float buffedjump = 1.5f; // multiplier for jump height when buffed
+
     public float terminalSpeed = 0.1f;// if player falls faster than this, set velocity to this value
 
     public float coyoteTime = 0.5f; // time after leaving ground that jump is still allowed
@@ -67,6 +69,7 @@ public class PlayerController : MonoBehaviour
                 transform.position += Vector3.left * dashDistance;
             }
         }
+     
         MovementUpdate(playerInput);
     }
 
@@ -112,9 +115,13 @@ public class PlayerController : MonoBehaviour
 
     private void JumpInput(Vector2 playerInput)
     {
-        if (playerInput.y == 1 && coyoteTimeCounter > 0f)
-        { 
-        velocity.y = jumpVel;
+        if (Input.GetKey(KeyCode.Q))
+        {
+            velocity.y = jumpVel * buffedjump;
+        }
+        else if (playerInput.y == 1 && coyoteTimeCounter > 0f)
+        {
+            velocity.y = jumpVel;
         }
         else if (!IsGrounded())
             velocity.y += gravity * Time.deltaTime;
