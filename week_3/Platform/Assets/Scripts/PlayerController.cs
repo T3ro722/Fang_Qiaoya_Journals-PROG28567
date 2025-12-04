@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private float coyoteTimeCounter;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,7 +70,16 @@ public class PlayerController : MonoBehaviour
                 transform.position += Vector3.left * dashDistance;
             }
         }
-     
+        if (Input.GetKey(KeyCode.E))
+        {
+            Time.timeScale = 0.3f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+
+
         MovementUpdate(playerInput);
     }
 
